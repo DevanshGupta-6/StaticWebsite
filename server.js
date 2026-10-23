@@ -3,6 +3,7 @@ const app = express()
 const port = 3000
 const path = require('path')
 const fs = require('fs')
+const os = require('os')
 
 app.use(express.static('public'))
 app.use(express.urlencoded({extended: true}))
@@ -26,7 +27,7 @@ app.get('/thenkeww', (req, res) =>{
 })
 app.post('/data', (req, res) =>{
     const submittedDate = req.body.Date;
-    const filePath = path.join(__dirname, 'data.json');
+    const filePath = path.join(os.tmpdir(), 'data.json');
     let data = [];
     if (fs.existsSync(filePath)) {
         const fileContent = fs.readFileSync(filePath, 'utf8');
@@ -45,7 +46,7 @@ app.post('/data', (req, res) =>{
 })
 app.post('/datetype', (req, res) =>{
     const submittedType = req.body.DateType;
-    const filePath = path.join(__dirname, 'data.json');
+    const filePath = path.join(os.tmpdir(), 'data.json');
     let data = [];
     if (fs.existsSync(filePath)) {
         const fileContent = fs.readFileSync(filePath, 'utf8');
